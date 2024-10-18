@@ -5,8 +5,6 @@ export interface RegisterFormData {
     email: string;
 }
 
-
-
 export interface LoginUser {
     login: string;
     password: string;

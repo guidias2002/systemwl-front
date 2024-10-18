@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { RegisterFormData } from '../interfaces/userTypes'
 import UserService from "../service/UserService";
+import { Container, Typography } from "@mui/material";
+import UserCreationForm from "../components/UserCreationForm";
 
 
 const RegisterForm: React.FC = () => {
@@ -29,7 +31,17 @@ const RegisterForm: React.FC = () => {
     };
 
     return (
-        
+        <Container>
+            <Typography>
+                Cadastro de usuário
+            </Typography>
+
+            <UserCreationForm
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
+        </Container>
     );
 
 };
