@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginResponse, LoginUser, RegisterFormData } from "../interfaces/userTypes";
+import { LoginUser, RegisterFormData } from "../interfaces/userTypes";
 
 
 const API_URL = 'http://localhost:8080/user';
@@ -16,7 +16,7 @@ const register = async(formData: RegisterFormData): Promise<void> => {
 };
 
 
-const login = async(loginUserData: LoginUser): Promise<{ data: LoginResponse }> => {
+const login = async(loginUserData: LoginUser): Promise<{ data: string }> => {
     try {
         const response = await axios.post(`${API_URL}/login`, loginUserData);
         return response;
