@@ -10,7 +10,3 @@ export interface LoginUser {
     password: string;
 }
 
-export interface LoginResponse {
-    sucess: boolean;
-    userId: string;
-}
