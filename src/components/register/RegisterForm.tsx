@@ -1,17 +1,25 @@
-import { ChangeEvent, FormEvent, useState } from "react"
-import { RegisterFormData } from '../interfaces/userTypes'
-import UserService from "../service/UserService";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { useAuth } from "../../context/AuthContext";
+import { RegisterFormData } from "../../interfaces/userTypes";
+import UserService from "../../service/UserService";
+import UserCreationForm from "./UserCreationForm";
 import { Container, Typography } from "@mui/material";
-import UserCreationForm from "../components/UserCreationForm";
+import { Link } from "react-router-dom";
+
 
 
 const RegisterForm: React.FC = () => {
+    const { logout } = useAuth();
     const [formData, setFormData] = useState<RegisterFormData>({
         name: '',
         login: '',
         password: '',
         email: '',
     });
+
+    useEffect(() => {
+        logout();
+    }, [logout])
 
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +39,17 @@ const RegisterForm: React.FC = () => {
     };
 
     return (
-        <Container>
+        <Container
+            sx={{
+                width: '40%',
+                margin: '0 auto', 
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center', 
+                mt: 5 
+            }}
+        >
             <Typography>
                 Cadastro de usuário
             </Typography>
@@ -41,6 +59,10 @@ const RegisterForm: React.FC = () => {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
             />
+
+            <div>
+                <Link to={"login"}>Já possui cadastro? Clique aqui</Link>
+            </div>
         </Container>
     );
 
