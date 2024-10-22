@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import RegisterForm from './components/RegisterForm'
-import LoginForm from './components/LoginForm';
-import Dashboard from './components/Dashboard';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './context/ProtectedRoute';
+import Main from './pages/Main';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 function App() {
 
@@ -12,9 +12,9 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<RegisterForm/>}/>
-            <Route path="/login" element={<LoginForm/>}/>
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/" element={<RegisterPage/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/main" element={<ProtectedRoute><Main /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
