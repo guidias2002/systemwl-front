@@ -10,9 +10,11 @@ interface UserCreationFormProps {
     };
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
+    errors: { name?: string; login?: string; password?: string; email?: string };
+
 }
 
-const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleChange, handleSubmit }) => {
+const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleChange, handleSubmit, errors }) => {
     return (
         <form onSubmit={handleSubmit} style={{ width: '100%' }}> 
             <Box 
@@ -31,6 +33,8 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     onChange={handleChange}
                     size="medium"
                     required
+                    error={Boolean(errors.name)}
+                    helperText={errors.name}
                 />
                 <TextField
                     fullWidth
@@ -40,6 +44,8 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     onChange={handleChange}
                     size="medium"
                     required
+                    error={Boolean(errors.login)}
+                    helperText={errors.login}
                 />
                 <TextField
                     fullWidth
@@ -50,6 +56,8 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     onChange={handleChange}
                     size="medium"
                     required
+                    error={Boolean(errors.password)}
+                    helperText={errors.password}
                 />
                 <TextField
                     fullWidth
@@ -59,6 +67,8 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     onChange={handleChange}
                     size="medium"
                     required
+                    error={Boolean(errors.email)}
+                    helperText={errors.email}
                 />
                 <Button variant="contained" color="primary" type="submit" fullWidth>
                     Cadastrar

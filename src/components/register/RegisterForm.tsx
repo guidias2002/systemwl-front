@@ -5,11 +5,13 @@ import UserService from "../../service/UserService";
 import UserCreationForm from "./UserCreationForm";
 import { Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { validateUseForm } from "../../validation/ValidateUseForm";
 
 
 const RegisterForm: React.FC = () => {
     const { logout } = useAuth();
+    const [errors, setErrors] = useState<{ login?: string, email?: string }>({});
+
     const [formData, setFormData] = useState<RegisterFormData>({
         name: '',
         login: '',
@@ -28,10 +30,18 @@ const RegisterForm: React.FC = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
+        const validationErrors = await validateUseForm(formData.login, formData.email);
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return validationErrors;
+        }
         
         try {
             await UserService.register(formData);
-            alert("Usuário cadastrado com sucesso.")
+            window.location.reload();
+            
         } catch (error) {
             console.error("Erro ao cadastrar usuário", error);
             alert("Erro ao cadastrar usuário.");
@@ -58,6 +68,7 @@ const RegisterForm: React.FC = () => {
                 formData={formData}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                errors={errors}
             />
 
             <div>
