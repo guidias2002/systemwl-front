@@ -3,27 +3,32 @@ import React, { createContext, useContext, useState } from 'react';
 
 interface AuthContextType {
     token: string | null;
-    login: (newToken: string) => void;
+    loginUser: (newToken: string, loginData: string) => void;
+    loginField: string | null;
     logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [token, setToken] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(localStorage.getItem("authToken"));
+    const [loginField, setloginField] = useState<string | null>(localStorage.getItem("loginField"));
 
-    const login = (newToken: string) => {
+    const loginUser = (newToken: string, loginData: string) => {
         setToken(newToken);
+        setloginField(loginData);
         localStorage.setItem("authToken", newToken);
+        localStorage.setItem("loginField", loginData);
     };
 
     const logout = () => {
         setToken(null);
         localStorage.removeItem("authToken");
+        localStorage.removeItem("loginField");
     };
 
     return (
-        <AuthContext.Provider value={{ token, login, logout }}>
+        <AuthContext.Provider value={{ token, loginUser, logout, loginField }}>
             {children}
         </AuthContext.Provider>
     );
