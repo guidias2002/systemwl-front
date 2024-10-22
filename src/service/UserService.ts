@@ -29,8 +29,33 @@ const login = async(loginUserData: LoginUser): Promise<{ token: string, login: s
 
 // implementar a verificação de login e email cadastrado
 
+const checkUser = async (login: string, email: string) => {
+    try {
+        const response = await axios.get(`${API_URL}/check?login=${login}&email=${email}`);
+
+        const { login: loginExists, email: emailExists } = response.data;
+
+        console.log("Resposta da verificação de usuário: ", response);
+
+        return {
+            loginExists,
+            emailExists
+        };
+
+    } catch (error) {
+        console.log("Erro ao verificar usuário", error);
+        
+        return {
+            emailExists: false,
+            loginExists: false,
+        };
+    }
+};
+
+
 export default {
     register,
     login,
+    checkUser,
 };
 
