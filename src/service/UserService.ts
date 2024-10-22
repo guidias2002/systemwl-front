@@ -16,15 +16,18 @@ const register = async(formData: RegisterFormData): Promise<void> => {
 };
 
 
-const login = async(loginUserData: LoginUser): Promise<{ data: string }> => {
+const login = async(loginUserData: LoginUser): Promise<{ token: string, login: string }> => {
     try {
         const response = await axios.post(`${API_URL}/login`, loginUserData);
-        return response;
+        return response.data;
     } catch (error) {
         console.error('Erro ao fazer login', error);
         throw error;
     }
 };
+
+
+// implementar a verificação de login e email cadastrado
 
 export default {
     register,
