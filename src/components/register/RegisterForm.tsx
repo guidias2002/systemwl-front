@@ -10,7 +10,7 @@ import { validateUseForm } from "../../validation/ValidateUseForm";
 
 const RegisterForm: React.FC = () => {
     const { logout } = useAuth();
-    const [errors, setErrors] = useState<{ login?: string, email?: string }>({});
+    const [errors, setErrors] = useState<{ name?: string, login?: string, email?: string, password?: string }>({});
 
     const [formData, setFormData] = useState<RegisterFormData>({
         name: '',
@@ -31,7 +31,7 @@ const RegisterForm: React.FC = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        const validationErrors = await validateUseForm(formData.login, formData.email);
+        const validationErrors = await validateUseForm(formData.name, formData.login, formData.email, formData.password);
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
@@ -44,7 +44,6 @@ const RegisterForm: React.FC = () => {
             
         } catch (error) {
             console.error("Erro ao cadastrar usuário", error);
-            alert("Erro ao cadastrar usuário.");
         }
     };
 

@@ -32,7 +32,6 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     value={formData.name}
                     onChange={handleChange}
                     size="medium"
-                    required
                     error={Boolean(errors.name)}
                     helperText={errors.name}
                 />
@@ -43,7 +42,6 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     value={formData.login}
                     onChange={handleChange}
                     size="medium"
-                    required
                     error={Boolean(errors.login)}
                     helperText={errors.login}
                 />
@@ -55,7 +53,6 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     value={formData.password}
                     onChange={handleChange}
                     size="medium"
-                    required
                     error={Boolean(errors.password)}
                     helperText={errors.password}
                 />
@@ -66,7 +63,6 @@ const UserCreationForm: React.FC<UserCreationFormProps> = ({ formData, handleCha
                     value={formData.email}
                     onChange={handleChange}
                     size="medium"
-                    required
                     error={Boolean(errors.email)}
                     helperText={errors.email}
                 />
