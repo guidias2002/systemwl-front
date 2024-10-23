@@ -5,10 +5,12 @@ import { Container, Typography } from "@mui/material";
 import UserLoginForm from "./UserLoginForm";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { validateLoginForm } from "../../validation/ValidateLoginForm";
 
 const LoginForm: React.FC = () => {
     const { loginUser, logout } = useAuth();
     const navigate = useNavigate();
+    const [errors, setErrors] = useState<{ login?: string, password?: string }>({});
 
     const [loginData, setLoginData] = useState<LoginUser>({
         login: '',
@@ -27,6 +29,13 @@ const LoginForm: React.FC = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
+        const validationErrors = validateLoginForm(loginData.login, loginData.password);
+
+    if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return; // Impede o envio se houver erros de validação
+    }
+
         try {
             const { token, login } = await UserService.login(loginData);
             
@@ -34,7 +43,10 @@ const LoginForm: React.FC = () => {
             navigate("/main")
         } catch (error) {
             console.error("Erro ao logar", error);
-            alert("Erro ao logar.");
+
+            setErrors({
+                password: "Login ou senha incorretos."
+            })
         }
     };
 
@@ -58,6 +70,7 @@ const LoginForm: React.FC = () => {
                 loginData={loginData}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                errors={errors}
             />
 
             <div>

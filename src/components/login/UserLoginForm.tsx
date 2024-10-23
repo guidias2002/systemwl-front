@@ -8,37 +8,40 @@ interface UserLoginFormProps {
     };
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
+    errors: { login?: string; password?: string };
 
 }
 
-const UserLoginForm: React.FC<UserLoginFormProps> = ({ loginData, handleChange, handleSubmit }) => {
+const UserLoginForm: React.FC<UserLoginFormProps> = ({ loginData, handleChange, handleSubmit, errors }) => {
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 id="login"
                 label="Login"
                 name="login"
-                autoComplete="login"
+                autoComplete="off"
                 autoFocus
                 value={loginData.login}
                 onChange={handleChange}
+                error={!!errors.login}
+                helperText={errors.login}
             />
             <TextField
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                autoComplete="off"
                 value={loginData.password}
                 onChange={handleChange}
+                error={!!errors.password}
+                helperText={errors.password} 
             />
             <Button
                 type="submit"
